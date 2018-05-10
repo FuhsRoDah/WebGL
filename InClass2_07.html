@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+uniform float theta;
+attribute vec3 vColor;
+varying vec4 colors;
+uniform float scale;
+
+void main()
+{
+    float s = sin( theta );
+    float c = cos( theta );
+	float u = scale;
+
+    gl_Position.x = -s * vPosition.y*u + c * vPosition.x*u;
+    gl_Position.y =  s * vPosition.x*u + c * vPosition.y*u;
+    gl_Position.z = 0.0;
+    gl_Position.w = 1.0;
+	
+	colors = vec4(vColor, 1.0);
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+varying vec4 colors;
+
+void main()
+{
+    gl_FragColor = colors;
+	
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="InClass2_07.js"></script>
+</head>
+
+<body>
+<select id="Controls" size="4">
+    <option value="0">Spin Faster</option>
+    <option value="1">Spin Slower</option>
+	<option value="3">Scale Up</option>
+	<option value="4">Scale Down</option>
+</select>
+
+<button id="Direction">Toggle Rotation</button>
+
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>
